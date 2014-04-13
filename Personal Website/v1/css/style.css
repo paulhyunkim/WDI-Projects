@@ -1,0 +1,207 @@
+/* Reset */
+* {
+	border: 1px solid black;
+}
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/* Document */
+
+h1,h2,h3,h4,h5,h6 {
+	font-family: Lato;
+}
+
+
+
+/* Header */
+
+#topbar {
+	width: 100%;
+	height: 6px;
+	background-color: gray;
+}
+
+#logo {
+	font-family: 'Lato', sans-serif;
+	letter-spacing: 3px;
+	font-size: 24px;
+	float: left;
+	margin: 0;
+}
+
+ul#nav li {
+	display: inline;
+	margin-left: 15px;
+}
+#nav {
+	font-family: 'Lato', sans-serif;
+	font-size: 12px;
+	margin: 0;
+	float: right;
+}
+
+header {
+	padding: 30px 6%;
+	background-color: white;
+}
+
+/* Content */
+
+.blurb {
+	font-family: 'Source Sans Pro', sans-serif;
+	margin: 50px auto 30px auto;
+}
+
+.blurb h1 {
+	font-size: 60px;
+	padding-bottom: 15px;
+}
+
+a.button {
+	background-color:red;
+	color: white;
+	padding: 10px;
+	margin-top: 30px;
+	border-bottom: 3px solid #ab0c00;
+	display: inline-block;
+	clear: both;
+}
+
+a.button:hover {
+	opacity: 0.7;
+}
+
+a {
+	text-decoration: none;
+	color: black;
+}
+a:hover {
+	color: red;
+	-webkit-transition: color 0.2s ease;		
+	-moz-transition: color 0.2s ease;
+	-ms-transition: color 0.2s ease;
+	-o-transition: color 0.2s ease;
+	transition: color 0.2s ease;	
+}
+p {
+	width: 80%;
+	font-size: 22px;
+	max-width: 600px;
+	margin: 0 auto 20px auto;
+	text-align: center;
+	line-height: 140%;
+}
+strong {
+	font-weight: 900;
+	font-size: 1.1em;
+	color: red;
+}
+
+.thumbnail {
+	background-color: orange;
+	display: inline-block;
+	height: 100px;
+	width: 100px;
+	margin: 50px 20px 20px 20px;
+}
+
+
+
+section {
+	padding: 50px 15% 30px 15%;
+	font-family: 'Source Sans Pro', sans-serif;
+	text-align: center;
+}
+.odd {
+	background-color: #f2f2f2;
+}
+.even {
+	background-color: white;
+} 
+
+
+
+
+
+
+
+
+
+
+
+
+
+#aboutme {
+	overflow: auto;
+	
+}
+
+span.keyword {
+	color: red;
+	font-weight: 900;
+	font-size: 1.2em;
+}
+
+span.keyword:hover {
+	color: red;
+}
+
+
+
+
+
+
+#aboutavatar {
+	height: 200px;
+	width: 200px;
+	background-color: gray;
+	float: right;
+}
+
+#abouttext {
+	width: 50%;
+	float: left;
+}
+

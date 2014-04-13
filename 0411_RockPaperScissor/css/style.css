@@ -1,0 +1,21 @@
+.button {
+	width: 150px;
+	display: inline-block;
+	margin: 10px;
+	padding: 20px;
+	text-align: center;
+	color: white;
+}
+
+#rock {
+	background-color: red;
+}
+
+#paper {
+	background-color: green;
+}
+
+#scissor {
+	background-color: blue;
+}
+
