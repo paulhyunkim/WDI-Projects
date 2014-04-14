@@ -1,12 +1,3 @@
-window.onload = startup;
-
-function startup() {
-  var buttons = document.getElementsByClassName('button');
-  for (i = 0; i < buttons.length; i++) {
-    buttons[i].onclick = play;
-  }
-}
-
 var ruleBook = ["rock", "paper", "scissor", "rock", "paper"];
 
 function play(event) {
@@ -43,3 +34,12 @@ function randGenerator() {
     return "scissor";
   }
 }
+
+function startup() {
+  var buttons = document.getElementsByClassName('button');
+  for (i = 0; i < buttons.length; i++) {
+    buttons[i].onclick = play;
+  }
+}
+
+window.onload = startup;

@@ -130,7 +130,7 @@ var Phone = {
 function loadImage(id) {
 }
 
-var PhoneList = {
+var PhoneListPrototype = {
   toHTML: function() {
     return this.phones.map(function(item) { return '<li onclick="loadImage(\''+item.id+'\');" class="thumbnail phone-listing"> '+item.name+'</li>'; } ).join(" ");
   }
@@ -147,3 +147,17 @@ var fromPrototype = function(prototype, object) {
 
   return newObject;
 };
+
+function startup() {
+  var phoneListDiv = document.getElementById("phoneList");
+  var phoneList = fromPrototype(PhoneListPrototype, phonesJSON);
+  phoneListDiv.innerHTML = phoneList.toHTML();  
+  for (var i = 0; i < phoneDetails.length; i++) {
+    phoneDetails[i].__proto__ = Phone;
+  } 
+  phoneContentDiv = document.getElementById("phoneContent");
+  phoneContent.innerHTML = phoneDetails[4].toHTML();
+}
+
+window.onload = startup;
+

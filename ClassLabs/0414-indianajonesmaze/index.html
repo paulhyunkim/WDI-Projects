@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	
+	<style>
+	#main {
+		width: 430px;
+		height: 430px;
+	}
+div div div{float:left; border:3px solid white; width:100px; height:100px; background-color:blue; color:white; font-size:15pt; background-image: none;}
+.row{clear:both;}
+#result {
+	display:none;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	background-color: white;
+	text-align: center;
+	padding: 70px;
+	box-sizing: border-box;
+	font-size: 70px;
+	height: 430px;
+	width: 430px;
+}
+</style>
+</head>
+<body>
+<div id="main">
+	<div class="row">
+		<div id="cell1">*end*</div>
+		<div id="cell2">&#8592;</div>
+		<div id="cell3">&#8592;</div>
+		<div id="cell4"></div>
+	</div>
+	<div class="row">
+		<div id="cell5"></div>
+		<div id="cell6">&#8594;</div>
+		<div id="cell7">&#8593;</div>
+		<div id="cell8"></div>
+	</div>
+	<div class="row">
+		<div id="cell9">*start*&#8594;</div>
+		<div id="cell10">&#8593;</div>
+		<div id="cell11"></div>
+		<div id="cell12"></div>
+	</div>
+	<div class="row">
+		<div id="cell13"></div>
+		<div id="cell14"></div>
+		<div id="cell15"></div>
+		<div id="cell16"></div>
+	</div>
+
+
+</div>
+
+
+<div id="result"></div>	
+	<script>
+
+	playerSequence = new Array();
+	sequence=[9, 10, 6, 7, 3, 2, 1];
+	rows = document.getElementsByClassName("row");
+
+window.onload = function(){ 
+
+	for(var i = 0; i < rows.length; i++)
+	{
+		cells = rows[i].getElementsByTagName("div");
+		for(var c = 0; c < cells.length; c++)
+		{
+			cells[c].onmouseenter = mousedOver;
+		}
+	}
+
+function mousedOver() {
+	console.log(this.id.substring(4,999));
+	
+	playerSequence.push(parseInt(this.id.substring(4,999)));
+
+	if (sequence[0] == playerSequence[0]) {
+		this.style.backgroundColor = "green";
+		playerSequence.pop();
+		sequence.shift();
+	} else {
+			// color all cells red
+			for(var i = 0; i < rows.length; i++) {
+				cells = rows[i].getElementsByTagName("div");
+					for(var c = 0; c < cells.length; c++) {
+						cells[c].style.backgroundColor = "red";
+					}
+			}
+			// display "you lose!"
+		document.getElementById("result").innerHTML = "You Lose!";
+		document.getElementById("result").style.display = "inline";
+	};
+
+	if (sequence.length == 0) {
+		document.getElementById("result").innerHTML = "You won!";
+		document.getElementById("result").style.display = "inline";
+	}
+}
+};
+// var i = 0;
+// for (; i < playerSequence.lenght; i++) {
+// 	if (playerSequence[i] != sequence[i]) {
+// 		break;
+// 	}
+
+// }
+
+// if (i != playerSequence.length) {
+
+// }
+
+
+	</script>
+</body>
+</html>
