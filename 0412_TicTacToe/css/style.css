@@ -1,0 +1,30 @@
+.space{
+	float: left;
+	border: 3px solid white;
+	width: 100px;
+	height: 100px;
+	background-color: gray;
+	color:white;
+	font-size: 15pt;
+	background-image: none;
+}
+
+.click {
+
+}
+
+.row{clear:both;}
+
+#result {
+	display:none;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	background-color: white;
+	text-align: center;
+	padding: 70px;
+	box-sizing: border-box;
+	font-size: 70px;
+	height: 430px;
+	width: 430px;
+}

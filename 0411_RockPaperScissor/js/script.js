@@ -1,7 +1,6 @@
 var ruleBook = ["rock", "paper", "scissor", "rock", "paper"];
 
-function play(event) {
-  console.log(event);
+function play() {
   var playerChoice = this.id;
   var compChoice = randGenerator();
   whoWins(playerChoice, compChoice);

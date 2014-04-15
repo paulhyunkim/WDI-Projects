@@ -1,30 +1,65 @@
 window.onload = startup;
 
+var winNum;
+
+
 function startup() {
+
   var grid = document.getElementsByClassName('button');
   for (i = 0; i < grid.length; i++) {
     grid[i].onclick = play;
   }
 }
 
-function startGame(dim) {
-	// board game
-	board = new Array(dim);
-	for (var i = 0; i < dim; i++) {
-		board[i] = new Array(dim);
-	}
+function displayBoard() {
+	for (var i = 0; i < board.length; i++) {
+		console.log(board[i]);
+	}	
+}
 
+function createBoard(boardDim) {
+	board = new Array(boardDim);
+	for (var i = 0; i < boardDim; i++) { board[i] = new Array(boardDim); }
+}
+
+function createPlayers(numPlayers) {
+	for (var i = 0; i < numPlayers; i++) {
+		playersList[i] = i;
+	}
+}
+
+function startGame() {
 	// scoreboard
 	scoreBoard = new Array();
-	for (var i, i < num; i++) {
+	for (var i; i < num; i++) {
 		scoreBoard[i] = 0;
 	}
 
-	// player list
+	// player list, current player, last turn
 	playersList;
 
-	// current player, last turn
 	checkSpaces = [board[x,y], board[x,y+1], board[x,y+2]], [board[x,y-1], board[x,y], board[x,y+1]], [board[x,y-2], board[x,y-1], board[x,y]], [board[x-2,y], board[x-1,y], board[x,y]], [board[x-1,y], board[x,y], board[x+1,y]], [board[x,y], board[x+1,y], board[x+2,y]], [board[x-1,y-1], board[x,y], board[x+1,y+1]], [board[x-1,y+1], board[x,y], board[x+1,y-1]];
+
+	var horizontalIndex = 0;
+	var verticalIndex = 0;
+	var diagonalDownIndex = 0;
+	var diagonalUpIndex = 0;
+
+	// test parameters
+	board = [[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]];
+	x = 2;
+	y = 2;
+
+	horizontalCheck = new Array(3);
+	for (var i = 0; i < horizontalCheck.length; i++) {
+		horizontalCheck[i] = new Array(3);
+	}
+
+	for (var i = 0; i < winNum; i++) {
+		for (var j = 0; j < winNum; j++) {
+			horizontalCheck[i][j] = board[x][y-winNum+1+i+j];
+		}
+	}
 
 	lastMoveX;
 	lastMoveY;
@@ -38,21 +73,13 @@ function placePiece(player, playerMove) {
 // have javascript change class of div to 'played' to block players from choosing again
 
 function checkWin(player, playerMove) {
-	// var array1 = [board[x,y], board[x,y+1], board[x,y+2]]
-	// var array2 = [board[x,y-1], board[x,y], board[x,y+1]]
-	// var array3 = [board[x,y-2], board[x,y-1], board[x,y]]
-	// var array4 = [board[x-2,y], board[x-1,y], board[x,y]]
-	// var array5 = [board[x-1,y], board[x,y], board[x+1,y]]
-	// var array6 = [board[x,y], board[x+1,y], board[x+2,y]]
-	// var array7 = [board[x-1,y-1], board[x,y], board[x+1,y+1]]
-	// var array8 = [board[x-1,y+1], board[x,y], board[x+1,y-1]]
 
-	for () {
-		for () {
-			// have a counter that counts through each array and if 3...
-			gameWon(currentPlayer);
-		}
-	}
+	// for () {
+	// 	for () {
+	// 		// have a counter that counts through each array and if 3...
+	// 		gameWon(currentPlayer);
+	// 	}
+	// }
 }
 
 function gameWon(currentPlayer) {

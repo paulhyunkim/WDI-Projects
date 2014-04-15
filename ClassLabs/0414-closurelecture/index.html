@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+
+	<script>
+
+// When the page is fully loaded
+		window.onload = function(){
+			// Attach a click event handler to myButton
+			document.getElementById("myButton").onclick = function(){
+				// When the button is clicked, show what this is, and also that
+				// crazy event object that came out of nowhere
+				console.log(this.id, event);
+			};
+		};
+
+
+		// Just an average stupid function
+
+		function makePincheThing(x) {
+			return function pinche(y){
+				// Find out what it thinks "this" is
+				console.log(this);
+				return x*y;
+			}
+		}
+
+		
+
+		// Call it, redefining "this"!
+		alert( pinche.call(["hello mom", pinche], 3,4) );
+
+
+	function Movie(name, rating, genre, releaseDate){
+			console.log(this);	// this = empty movie object
+			this.name = name;
+			this.rating = rating;
+			this.genre = genre;
+			this.releaseDate = releaseDate;
+			this.showInfo = function(){
+				console.log(this);	// this = movie object, all filled in
+				return this.name + " " + this.genre;
+			};
+		}
+
+		// Build a couple movies
+		// (Note the use of the new keyword)
+		var movie1 = new Movie("Spice World", "PG", "Awesome", 1997);
+		var movie2 = new Movie("Goonies", "PG", "Campish Eclectic", 1985);
+		// Show them
+		alert( movie1.showInfo() );
+		alert( movie2.showInfo() );
+
+		// This attaches the method "trashTheTitle" on to the Movie class
+		// And thus all objects already built so we can call it whenever
+		Movie.prototype.trashTheTitle = function(){
+			this.name = "HAHAHAHAHAHAHA";
+		}
+
+		movie1.trashTheTitle();	// Call into this newly-attached method
+		alert( movie1.showInfo() );	// WHO TRASHED THIS!!!  LOSER!!!
+
+	</script>
+
+</head>
+<body>
+
+<input type="button" id="myButton" />
+
+
+	
+</body>
+</html>
