@@ -1,7 +1,5 @@
-// window.onload = startup;
-
-// create empty board
-function createNewBoard() {
+function createNewGame() {
+	// create empty board
 	board = new Array(3);
 	for (var i = 0; i < 3; i++) { board[i] = new Array(3); }
 
@@ -11,9 +9,16 @@ function createNewBoard() {
 			board[i][j] = 0; 
 		}
 	}
+
+	// console.log(clickableSpaces);
+
+	// reset background colors
+	for (var i = 0; i < 9; i++) {
+		clickableSpaces[i].style.backgroundColor = "gray";
+		clickableSpaces[i].dataset.clicked = 0;
+	}
 }
 
-player = 1;
 
 function switchPlayer() {
 	if (player == 1) {
@@ -54,51 +59,66 @@ function checkWin(player) {
 }
 
 function gameWon(player) {
+	
+
 }
 
-function placePiece(player, playerMove, space) {
-	console.log(event);
+
+function placePiece(player, playerMove, clickedSpace) {
 	board[playerMove[0]][playerMove[1]] = player;
-	if (checkWin(player)) {
-		console.log("You Win!");
-	}
+	console.log(clickedSpace);
+
+	// color space to player ID
 	if (player == 1) {
-		document.getElementById(space).style.backgroundColor = "red";
+		clickedSpace.style.backgroundColor = "red";
 	}
 	if (player == 2) {
-		document.getElementById(space).style.backgroundColor = "green";
+		clickedSpace.style.backgroundColor = "green";
 	}
-	// document.getElementById(space).className = document.getElementById(space).className.replace("", " clicked");
 
+	// change space to "clicked"
+	clickedSpace.dataset.clicked = 1;
 
+	// check if win
+	// if win, congratulate, and start new game
+	if (checkWin(player)) {
+		document.getElementById("result").innerHTML = "You Win!";
+		gameWon(player);
+		// update scoreboard
+		scoreboard[player-1]++;
+		document.getElementById("scoreboard").innerHTML = scoreboard[0] + " " + scoreboard[1];
+		// not clearing boxes from color
+		createNewGame();
+	}
+	
 }
 
 
 
 window.onload = function() { 
-	createNewBoard();
-	var clickable = document.getElementsByClassName("space");
-	for (var i = 0; i < clickable.length; i++) {
-		clickable[i].onclick = play;
-	}
+	scoreboard = [0,0];
+	player = 1;
+	document.getElementById("turn").innerHTML = "Turn: Player " + player;
+	document.getElementById("scoreboard").innerHTML = scoreboard[0] + " " + scoreboard[1];
 
-	// var rows = document.getElementsByClassName("row");
-	// for(var i = 0; i < rows.length; i++) {
-	// 	cells = rows[i].getElementsByTagName("div");
-	// 	for(var c = 0; c < cells.length; c++) {
-	// 		cells[c].onclick = play;
-	// 	}
-	// }
+	clickableSpaces = document.getElementsByClassName("space");
+	createNewGame(clickableSpaces);
+	
+	for (var i = 0; i < clickableSpaces.length; i++) {
+		clickableSpaces[i].onclick = play;
+	}
 }
 
 function play() {
-	// if (this.style.backgroundColor) {
+	var clickedSpace = this;
+	
+	if (clickedSpace.dataset.clicked == 0) {
 		console.log(this);
-		placePiece(player, [parseInt(this.dataset.x), parseInt(this.dataset.y)], parseInt(this.id));
+		placePiece(player, [parseInt(this.dataset.x), parseInt(this.dataset.y)], clickedSpace);
 		displayBoard();
 		player = switchPlayer();
-	// }
-	
+		document.getElementById("turn").innerHTML = "Turn: Player " + player;
+	}	
 }
 
 // upon load, createNewBoard

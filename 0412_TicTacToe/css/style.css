@@ -1,5 +1,5 @@
 .space{
-	float: left;
+	display: inline-block;
 	border: 3px solid white;
 	width: 100px;
 	height: 100px;
@@ -14,17 +14,3 @@
 }
 
 .row{clear:both;}
-
-#result {
-	display:none;
-	position: absolute;
-	top: 0px;
-	left: 0px;
-	background-color: white;
-	text-align: center;
-	padding: 70px;
-	box-sizing: border-box;
-	font-size: 70px;
-	height: 430px;
-	width: 430px;
-}
