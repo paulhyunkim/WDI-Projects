@@ -1,0 +1,28 @@
+<!doctype html>
+<!-- "ng-app" pretty much is a container that says everything inside is an angular app -->
+<html ng-app="studentListApp"> 
+  <head>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
+    <script src="js/app.js"></script>
+  </head>
+  <body ng-controller="StudentListCtrl">
+    <h1>All the Students!</h1>
+    Search: <input ng-model="query">
+    <ul>
+      <li ng-repeat="student in students | filter:query">
+        <dl>
+        <dt>Name</dt>
+        <dd>{{student.name}}</dd>
+
+        <dt>Hobbies</dt>
+        <dd>{{student.hobby}}</dd>
+        </dl>
+      </li>
+    </ul>
+    Name: <input ng-model="name"><br>
+    Hobby: <input ng-model="hobby"><br>
+    <button ng-click="addStudent(name,hobby)">Submit</button>
+  </body>
+</html>
