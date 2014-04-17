@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+        <title>Jurassic Park To-Do List</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.min.js"></script> <!-- bringing in Angular --> 
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-resource.min.js"> </script> <!-- bringing in Angular resource -->     
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-route.min.js"></script> <!-- bringing in Angular route -->
+
+        <script src="main.js"></script> <!-- our own JS -->
+
+</head>
+
+<body x-ng-app="JurassicApp" x-ng-controller="ParkController"> <!-- bootstrap on Angular, bring in our ParkController (defined in main.js) -->
+
+	<h1 x-ng-bind="greeting"></h1>
+	<div class="change">Change this greeting: <input type="text" x-ng-model="greeting"></div>
+
+  <div id="container">
+      <div id="dinosaur"></div>
+      <div id="appmain">
+          <ul>
+
+            <li x-ng-repeat="t in todos"> {{t.task}} -- <span x-ng-style="myColor(t);">{{t.done}}</span> <input type="checkbox" x-ng-model="t.done"></li>
+        
+          </ul>
+          
+          <div class="taskForm">
+            Add a new task: <br><br>
+            Goal:
+            <input type="text" x-ng-model="task" /><br>
+            <input type="button" value = "Hold onto your butts!" x-ng-click="addOne();"/>
+          </div>
+
+
+
+  </div>
+</body>
+
+</html>

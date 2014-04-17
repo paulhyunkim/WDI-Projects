@@ -1,0 +1,26 @@
+<html>
+<head>
+	<title></title>
+	<style>
+	div div{float:left; border:3px solid white; width:100px; height:100px; background-color:blue; color:white; font-size:15pt;}
+	.row{clear:both;}
+	</style>
+
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
+	<script src="script.js"></script>
+</head>	
+<body x-ng-app="" x-ng-controller="TicTacController">
+	
+
+
+
+	<div class="row" x-ng-repeat="r in rows track by $index"> 	<!-- 'track by $index' iterates through index and not values. angular iterates through values by default. you'll get duplicate error -->
+		<div x-ng-repeat="cell in r track by $index" x-ng-click="makeMove($parent.$index,$index)">{{ cell }} {{ $parent.$index }} {{ $index }}</div>
+		<!-- x-ng-click="cell = 'X';">{ -->
+	</div>
+
+</body>
+
+
+
+</html>

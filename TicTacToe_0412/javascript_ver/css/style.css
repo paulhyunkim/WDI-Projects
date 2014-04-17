@@ -1,0 +1,26 @@
+.main {
+	width: 400px;
+	margin: 0 auto;
+	text-align: center;
+}
+.board{
+	display: inline-block;
+	/*margin: 0 auto;*/
+	text-align: center;
+}
+.space{
+	display: inline-block;
+	margin: 1px;
+	width: 80px;
+	height: 80px;
+	background-color: gray;
+	font-size: 15pt;
+}
+
+.click {
+
+}
+
+.row{
+	clear:both;
+}

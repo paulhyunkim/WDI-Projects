@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="css/style.css">
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
+	<script src="js/script.js"></script>
+</head>
+<body x-ng-app="" x-ng-controller="TicTacToeController">
+
+<input type="text" x-ng-model="boardDimension">
+<button x-ng-click="createGame()">New Game</button>
+
+	<div class="row" x-ng-repeat="row in board track by $index">
+		<div class="space" x-ng-repeat="space in row track by $index" x-ng-click="makeMove(space)" x-ng-style="myColor(space)">{{ space.player }}</div>
+	</div>
+
+
+
+<div>
+<p x-ng-bind="win"></p>
+</div>	
+	
+</body>
+</html>
