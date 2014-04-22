@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="css/tictactoe.css">
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
+	<script src="js/tictactoe.js"></script>
+</head>
+
+
+
+<body x-ng-app="ticTacToeApp" x-ng-controller="TicTacToeController">
+
+	<h1 class="fadeInDown">TIC TAC TOE</h1>
+
+
+	<div class="board">
+		<div class="row" x-ng-repeat="row in board track by $index">
+			<div class="space" x-ng-repeat="space in row track by $index" x-ng-click="makeMove(space)" x-ng-class="{ 'unclicked': space.empty, 'winning_space': space.winningSpace }" x-ng-style="spaceColor(space)" ng-bind="xOrO(space)"></div>
+		</div>
+	</div>
+
+	<div class="info">
+		<h2>{{ "Player " + currentPlayer + "'s Turn" }}</h2>
+		<p>{{ "Player 1: " + scoreboard[0] }}</p>
+		<p>{{ "Player 2: " + scoreboard[1] }}</p>
+	</div>
+
+<!--  -->
+	<div class="result" x-ng-style="displayResult">
+		<h1>Player {{ currentPlayer }} Wins!<br/>
+		<button x-ng-click="continue()">Continue?</button></h1>
+	</div>
+	
+
+	<audio src="tetris.mp3" id="tetris"></audio>
+  <audio id="click" src="click.mp3"></audio>
+	<audio id="audio1" src="tetrisb.mid"></audio>
+
+
+	
+</body>
+
+</html>
+
+

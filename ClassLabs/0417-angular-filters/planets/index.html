@@ -1,0 +1,32 @@
+<!doctype html>
+<html ng-app="planetApp">
+  <head>
+    <title>Planets!</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+    body {
+      font-family: Helvetica; }
+    </style>
+    <script src="js/angular.min.js"></script>
+    <script src="js/app.js"></script>
+  </head>
+  <body>
+
+    <div ng-controller="PlanetsController" id="container">
+      <h1>Let's get Planetary!</h1>
+      <h2 x-ng-bind="search"></h2>
+      Filter These Planets! <input type="text" x-ng-model="search">
+      <h2>{{ search }}</h2>
+
+      <div class="planet" x-ng-repeat="p in planets | filter:search">
+        <h2>{{p.name | uppercase }}</h2>
+        <!-- chain filters with : after the first filter-->
+        <!-- <h2>{{p.name | filter: 'm' : uppercase }}</h2> -->
+        <p>Diameter - {{p.diameter | number: -2}} miles</p>
+      
+      </div>
+
+          
+    </div>
+  </body>
+</html>

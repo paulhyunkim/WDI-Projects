@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="css/connectfour.css">
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
+	<script src="js/connectfour.js"></script>
+</head>
+
+
+
+
+
+<body x-ng-app="" x-ng-controller="TicTacToeController">
+
+<h1>Connect Four</h1>
+
+<div class="board">
+
+	<div class="row" x-ng-repeat="row in board track by $index">
+		<div class="space" x-ng-repeat="space in row track by $index" x-ng-click="makeMove(space)" x-ng-style="myColor(space)"></div>
+	</div>
+
+</div>
+
+<div id="trapezium"></div>
+
+<div class="info">
+	<h2>{{ "Player " + currentPlayer + "'s Turn" }}</h2>
+	<p>{{ "Player 1: " + scoreboard[0] }}</p>
+	<p>{{ "Player 2: " + scoreboard[1] }}</p>
+</div>
+
+
+
+
+<div>
+<p x-ng-bind="win"></p>
+</div>	
+	
+</body>
+
+</html>
+
+

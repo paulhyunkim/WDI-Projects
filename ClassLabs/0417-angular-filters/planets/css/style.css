@@ -1,0 +1,26 @@
+body {
+	background-image: url("../img/nebula.jpg");
+	color: white;
+}
+
+#container {
+	background-color: black;
+	width: 960px;
+	margin: 0 auto;
+}
+
+h1 { 
+	text-align: center;
+	color: #ff88ff;
+}
+
+h2 {
+	color: yellow;
+}
+
+.planet { 
+	border: 3px dotted lightgrey;
+	width: 600px;
+	padding: 10px 45px;
+	margin: 15px auto;
+}

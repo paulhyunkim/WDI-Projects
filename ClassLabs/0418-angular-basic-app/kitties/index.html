@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html x-ng-app="kittiesApp" x-ng-controller="KittiesController">
+<head>
+	<link rel="stylesheet" href="css/style.css">
+	<script src="js/angular.min.js"></script>
+	<script src="js/app.js"></script>
+</head>
+	<body>
+		<div class="left-container">
+			<h1>Kitties for Adoption</h1>
+			<div class="kitties" ng-repeat="k in kitties | filter: false">
+				<h2>{{"My name is " + k.catName}}</h2>
+				<p>{{"I am " + k.monthsOld + " months old."}}</p>
+				<p>{{"I'm a " + k.gender + "."}}</p>
+				<img src="{{k.image}}" alt="">
+				<p>Adopt? <input type="checkbox" ng-model="k.adopted"></p>
+			</div>
+		</div>
+
+		<div class="right-container">
+			<h1>At their forever homes! <3</h1>
+			<div class="kitties" ng-repeat="k in kitties | filter: true">
+				<h2>{{"My name is " + k.catName}}</h2>
+				<p>{{"I am " + k.monthsOld + " months old."}}</p>
+				<p>{{"I'm a " + k.gender + "."}}</p>
+				<img ng-src="{{k.image}}" alt="">
+				<p>Adopt? <input type="checkbox" ng-model="k.adopted"></p>
+			</div>	
+		</div>
+	</body>
+</html>
