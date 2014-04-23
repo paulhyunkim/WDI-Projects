@@ -120,7 +120,6 @@ function TicTacToeController($scope) {
 		for (var i = 0; i < $scope.currentPiece.length; i++) {
 			for (var j = 0; j < $scope.currentPiece[i].length; j++) {
 				$scope.board[row+i][col+j].hover = $scope.currentPiece[i][j];
-				console.log($scope.board[row+i][col+j]);
 			}
 		}
 	}
@@ -166,15 +165,21 @@ function TicTacToeController($scope) {
 		}
   }
 
-  $scope.randomPiece = function() {
-  	$scope.currentPiece = $scope.allPieces[Math.floor((Math.random()*$scope.allPieces.length))][0];
-  	console.log(Math.floor((Math.random()*$scope.allPieces.length)));
-  	console.log($scope.currentPiece);
-  }
-
   $scope.placePiece = function(space) {
   	var row = space.row;
 		var col = space.col;
+		var noOverlap = false;
+
+		// for (var i = 0; i < $scope.currentPiece.length; i++) {
+		// 	for (var j = 0; j < $scope.currentPiece[i].length; j++) {
+		// 		// only place piece if all piece spaces 'land' on empty spaces
+		// 		// also, for 0's in the piece, do not change 'empty' status
+		// 		if ($scope.currentPiece[i][j] == 1 && $scope.board[row+i][col+j].empty) {
+		// 			$scope.board[row+i][col+j].player = $scope.currentPiece[i][j]*$scope.currentPlayer;
+		// 			$scope.board[row+i][col+j].empty = false;
+		// 		}
+		// 	}
+		// }
 
 		for (var i = 0; i < $scope.currentPiece.length; i++) {
 			for (var j = 0; j < $scope.currentPiece[i].length; j++) {
@@ -187,6 +192,8 @@ function TicTacToeController($scope) {
 			}
 		}
 
+		$scope.$apply();
+
 		$scope.checkWin();
   }
 
@@ -196,34 +203,120 @@ function TicTacToeController($scope) {
   	tetrisMusic.play();
   }
 
-  $scope.checkWin = function() {
-		var horizontals = [board[0], board[1], board[2], board[3], board[4], board[5], board[6], board[7]];
+  $scope.displayWin = function() {
+  	$scope.winSpaces = new Array();
+  	
+		var horizontals = [$scope.board[0], $scope.board[1], $scope.board[2], $scope.board[3], $scope.board[4], $scope.board[5], $scope.board[6], $scope.board[7]];
 		
-		// work on this!!!
+		// count continuous pieces
+		// iterating through rows/columns
 		for (var i = 0; i < horizontals.length; i++) {
-		var count = 0;
-		var previousSpace;
+			var count = 0;
+			var longestCount = 0;
+			var runningWinSpaces = [];
+			// iterating through elements in arrays
 			for (var j = 0; j < horizontals[i].length; j++) {
-				if (horizontals[i][j].player == $scope.currentPlayer ) {
+				if (horizontals[i][j].player == $scope.currentPlayer && j != horizontals[i].length - 1) {
 					count++;
+					runningWinSpaces.push($scope.board[i][j]);
+					confirm("row: " + i + " col: " + j + "running count: " + count);
+				} else if (count >= 4) {
+					confirm("entered else if (count >= 4");
+					count = 0;
+					$scope.winSpaces.push(runningWinSpaces);
+					confirm("winSpaces: " + $scope.winSpaces);
+					runningWinSpaces = [];
+					console.log($scope.winSpaces);
+				} else {
+					count = 0;
+					runningWinSpaces = [];
+				}
+				
+				
+			}
+		}
+  }
+
+  $scope.checkWin = function() {
+  	$scope.winSpaces = [];
+  	
+		var horizontals = [$scope.board[0], $scope.board[1], $scope.board[2], $scope.board[3], $scope.board[4], $scope.board[5], $scope.board[6], $scope.board[7]];
+
+		
+
+		// count continuous pieces
+		// iterating through rows/columns
+		for (var i = 0; i < horizontals.length; i++) {
+			var count = 0;
+			var lastCount = 0;
+			var longestCount = 0;
+			var runningWinSpaces = [];
+			// iterating through elements in arrays
+			// i = index of rows
+			// j = index of elems in row array
+			for (var j = 0; j < horizontals[i].length; j++) {
+				if (horizontals[i][j].player == $scope.currentPlayer) {
+					count++;
+					runningWinSpaces.push($scope.board[i][j]);
 				} else {
 					count = 0;
 				}
-			}
-			if (count >= 4) {
-				console.log("awesome!");
-				
-				for (var k = 0; k < checkSpaces[i].length; k++) {
-					checkSpaces[i][k].winningSpace = true;
-				}
-				console.log(checkSpaces[i]);
-				return checkSpaces[i];
 
+				if (count == 0) {
+					if (runningWinSpaces.length >= 4) {
+						$scope.winSpaces.push(runningWinSpaces);
+						runningWinSpaces = [];
+					} else {
+						runningWinSpaces = [];
+					}
 				}
+
+				if (j == horizontals[i].length - 1) {
+					if (runningWinSpaces.length >= 4) {
+						$scope.winSpaces.push(runningWinSpaces);
+						runningWinSpaces = [];
+					} else {
+						runningWinSpaces = [];
+					}
+				}
+
+				
+				
+				// check to add at end of line
+				// check to add if greater than 4
+				
 			}
 		}
-  
 
+		console.log($scope.winSpaces);
+
+		for (var i = 0; i < $scope.winSpaces.length; i++) {
+			for (var j = 0; j < $scope.winSpaces[i].length; j++) {
+				var row = $scope.winSpaces[i][j].row;
+				var col = $scope.winSpaces[i][j].col;
+				$scope.board[row][col].player = 0;
+				$scope.board[row][col].empty = true;
+			}	
+		}
+	}
+
+	$scope.displayBoard = function() {
+		for (var i = 0; i < $scope.board.length; i++) {
+			console.log($scope.board[i][0].player,$scope.board[i][1].player,$scope.board[i][2].player,$scope.board[i][3].player,$scope.board[i][4].player,$scope.board[i][5].player,$scope.board[i][6].player,$scope.board[i][7].player);
+		}
+	}
+		
+
+  $scope.randomPiece = function() {
+  	$scope.currentPieceType = $scope.allPieces[Math.floor((Math.random()*$scope.allPieces.length))]
+  	$scope.currentPiece = $scope.currentPieceType[0];
+  }
+
+	$scope.rotatePiece = function() {
+		$scope.currentPieceType.unshift($scope.currentPieceType.pop());
+		$scope.currentPiece = $scope.currentPieceType[0];
+
+	}
 
 	$scope.myColor = function(space) {
     if (space.color == 1) {
