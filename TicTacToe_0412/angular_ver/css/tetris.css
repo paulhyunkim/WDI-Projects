@@ -20,6 +20,10 @@ h2 {
 	font-weight: 100;
 }
 
+.hover {
+	background-color: black;
+}
+
 .xOrO {
 	font-size: 60px;
 	padding-bottom: 12px;

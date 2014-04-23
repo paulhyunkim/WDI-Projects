@@ -27,10 +27,6 @@ function ParkController($scope, $resource){
     })
 
 
-    $scope.$watchCollection('todos', function() {
-        $scope.count++;
-    })
-
     $scope.myColor = function (todo) {
           if (todo.done == false) {
             return { color: "red" }

@@ -152,8 +152,25 @@ function TicTacToeController($scope) {
     }
   }
 
-	function updateScore() {
-		$scope.scoreboard[$scope.currentPlayer]++;
+	$scope.updateScore = function(lineLength) {
+		var points = 0;
+		console.log("inside of updateScore");
+		switch (lineLength) {
+			case 4:
+				points = 4;
+				break;
+			case 5:
+				points = 10;
+				break;
+			case 6:
+				points = 30;
+				break;
+			case 7:
+				points = 100;
+				break;
+		}
+
+		$scope.scoreboard[$scope.currentPlayer-1] += points;
 	}
 	
   $scope.switchPlayer = function() {
@@ -169,6 +186,7 @@ function TicTacToeController($scope) {
   	var row = space.row;
 		var col = space.col;
 		var noOverlap = false;
+
 
 		// for (var i = 0; i < $scope.currentPiece.length; i++) {
 		// 	for (var j = 0; j < $scope.currentPiece[i].length; j++) {
@@ -195,6 +213,10 @@ function TicTacToeController($scope) {
 		$scope.$apply();
 
 		$scope.checkWin();
+
+		$scope.switchPlayer();
+		$scope.randomPiece();
+
   }
 
   $scope.playMusic = function() {
@@ -241,18 +263,27 @@ function TicTacToeController($scope) {
   	$scope.winSpaces = [];
   	
 		var horizontals = [$scope.board[0], $scope.board[1], $scope.board[2], $scope.board[3], $scope.board[4], $scope.board[5], $scope.board[6], $scope.board[7]];
-		var verticals = [
-			[$scope.board[0][0], $scope.board[1][0], $scope.board[2][0], $scope.board[3][0], $scope.board[4][0], $scope.board[5][0], $scope.board[6][0], $scope.board[7][0]],
-			[$scope.board[0][1], $scope.board[1][1], $scope.board[2][1], $scope.board[3][1], $scope.board[4][1], $scope.board[5][1], $scope.board[6][1], $scope.board[7][1]],
-			[$scope.board[0][2], $scope.board[1][2], $scope.board[2][2], $scope.board[3][2], $scope.board[4][2], $scope.board[5][2], $scope.board[6][2], $scope.board[7][2]],
-			[$scope.board[0][3], $scope.board[1][3], $scope.board[3][0], $scope.board[3][0], $scope.board[4][0], $scope.board[5][3], $scope.board[6][3], $scope.board[7][3]],
-			[$scope.board[0][4], $scope.board[1][4], $scope.board[4][0], $scope.board[3][0], $scope.board[4][0], $scope.board[5][4], $scope.board[6][4], $scope.board[7][4]],
-			[$scope.board[0][5], $scope.board[1][5], $scope.board[5][0], $scope.board[3][0], $scope.board[4][0], $scope.board[5][5], $scope.board[6][5], $scope.board[7][5]],
-			[$scope.board[0][6], $scope.board[1][6], $scope.board[6][0], $scope.board[3][0], $scope.board[4][0], $scope.board[5][6], $scope.board[6][6], $scope.board[7][6]],
-			[$scope.board[0][7], $scope.board[1][7], $scope.board[7][0], $scope.board[3][0], $scope.board[4][0], $scope.board[5][7], $scope.board[6][7], $scope.board[7][7]]
-			];
+		
+		var col0 = [$scope.board[0][0], $scope.board[1][0], $scope.board[2][0], $scope.board[3][0], $scope.board[4][0], $scope.board[5][0], $scope.board[6][0], $scope.board[7][0]];
+
+		var col1 = [$scope.board[0][1], $scope.board[1][1], $scope.board[2][1], $scope.board[3][1], $scope.board[4][1], $scope.board[5][1], $scope.board[6][1], $scope.board[7][1]];
+
+		var col2 = [$scope.board[0][2], $scope.board[1][2], $scope.board[2][2], $scope.board[3][2], $scope.board[4][2], $scope.board[5][2], $scope.board[6][2], $scope.board[7][2]];
+
+		var col3 = [$scope.board[0][3], $scope.board[1][3], $scope.board[2][3], $scope.board[3][3], $scope.board[4][3], $scope.board[5][3], $scope.board[6][3], $scope.board[7][3]];
+
+		var col4 = [$scope.board[0][4], $scope.board[1][4], $scope.board[2][4], $scope.board[3][4], $scope.board[4][4], $scope.board[5][4], $scope.board[6][4], $scope.board[7][4]];
+
+		var col5 = [$scope.board[0][5], $scope.board[1][5], $scope.board[2][5], $scope.board[3][5], $scope.board[4][5], $scope.board[5][5], $scope.board[6][5], $scope.board[7][5]];
+
+		var col6 = [$scope.board[0][6], $scope.board[1][6], $scope.board[2][6], $scope.board[3][6], $scope.board[4][6], $scope.board[5][6], $scope.board[6][6], $scope.board[7][6]];
+
+		var col7 = [$scope.board[0][7], $scope.board[1][7], $scope.board[2][7], $scope.board[3][7], $scope.board[4][7], $scope.board[5][7], $scope.board[6][7], $scope.board[7][7]];
+
+			
+		var verticals = [col0, col1, col2, col3, col4, col5, col6, col7];
 		var allLines = horizontals.concat(verticals);
-		console.log(verticals);
+		
 		
 
 		// count continuous pieces
@@ -275,6 +306,7 @@ function TicTacToeController($scope) {
 
 				if (count == 0) {
 					if (runningWinSpaces.length >= 4) {
+						$scope.updateScore(runningWinSpaces.length);
 						$scope.winSpaces.push(runningWinSpaces);
 						runningWinSpaces = [];
 					} else {
@@ -284,6 +316,7 @@ function TicTacToeController($scope) {
 
 				if (j == horizontals[i].length - 1) {
 					if (runningWinSpaces.length >= 4) {
+						$scope.updateScore(runningWinSpaces.length);
 						$scope.winSpaces.push(runningWinSpaces);
 						runningWinSpaces = [];
 					} else {
@@ -293,42 +326,50 @@ function TicTacToeController($scope) {
 			}
 		}
 
-		// for (var i = 0; i < verticals.length; i++) {
-		// 	var count = 0;
-		// 	var lastCount = 0;
-		// 	var longestCount = 0;
-		// 	var runningWinSpaces = [];
-		// 	// iterating through elements in arrays
-		// 	// i = index of rows
-		// 	// j = index of elems in row array
-		// 	for (var j = 0; j < verticals[i].length; j++) {
-		// 		if (verticals[i][j].player == $scope.currentPlayer) {
-		// 			count++;
-		// 			runningWinSpaces.push($scope.board[j][i]);
-		// 		} else {
-		// 			count = 0;
-		// 		}
+		for (var i = 0; i < verticals.length; i++) {
+			var count = 0;
+			var lastCount = 0;
+			var longestCount = 0;
+			var runningWinSpaces = [];
+			// iterating through elements in arrays
+			// i = index of rows
+			// j = index of elems in row array
+			for (var j = 0; j < verticals[i].length; j++) {
+				// console.log("col: " + i + " row: " + j + " player: " + verticals[i][j].player);
+				if (verticals[i][j].player == $scope.currentPlayer) {
+					count++;
+					// console.log("col: " + i + " row: " + j + " count: " + count);
+					runningWinSpaces.push($scope.board[j][i]);
+				} else {
+					count = 0;
+				}
 
-		// 		if (count == 0) {
-		// 			if (runningWinSpaces.length >= 4) {
-		// 				$scope.winSpaces.push(runningWinSpaces);
-		// 				runningWinSpaces = [];
-		// 			} else {
-		// 				runningWinSpaces = [];
-		// 			}
-		// 		}
+				if (count == 0) {
+					if (runningWinSpaces.length >= 4) {
+						$scope.updateScore(runningWinSpaces.length);
+						// console.log(runningWinSpaces.length);
+						$scope.winSpaces.push(runningWinSpaces);
 
-		// 		if (j == verticals[i].length - 1) {
-		// 			if (runningWinSpaces.length >= 4) {
-		// 				$scope.winSpaces.push(runningWinSpaces);
-		// 				runningWinSpaces = [];
-		// 			} else {
-		// 				runningWinSpaces = [];
-		// 			}
-		// 		}
-		// 	}
-		// 	console.log($scope.winSpaces);
-		// }
+						// $scope.updateScore(runningWinSpaces.length);
+						runningWinSpaces = [];
+
+					} else {
+						runningWinSpaces = [];
+					}
+				}
+
+				if (j == verticals[i].length - 1) {
+					if (runningWinSpaces.length >= 4) {
+						$scope.updateScore(runningWinSpaces.length);
+						$scope.winSpaces.push(runningWinSpaces);
+						// $scope.updateScore(runningWinSpaces.length);
+						runningWinSpaces = [];
+					} else {
+						runningWinSpaces = [];
+					}
+				}
+			}
+		}
 
 		
 
