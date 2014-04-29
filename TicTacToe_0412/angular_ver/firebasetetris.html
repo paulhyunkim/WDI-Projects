@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="css/tetris.css">
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,800,700,300' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Lato:900' rel='stylesheet' type='text/css'>
+	<script src="js/angular.min.js"></script>
+	<script src="js/firebase.js"></script>
+	<script src="js/angularfire.min.js"></script>
+	<script src="js/firebasetetris.js"></script>
+</head>
+
+
+
+
+
+<body x-ng-app="ticTacTetrisApp" x-ng-controller="TicTacTetrisController" x-ng-keypress="keyPress($event)">
+
+<div class="title"><h1>Tic Tac Tetris</h1></div>
+
+
+<div ng-if="!nameSubmitted" action="">
+	<input type="text" class="name" ng-model="name" name="text" placeholder="Player Name"/><br>
+	<div class="button" ng-click="setName(name)">Let's Play!</div>
+
+	<div class="intro"><h2>Welcome to my first web app!</h2><p>Simply line up five or more blocks to earn points! First to a hundred points wins! My first project at General Assembly. Made using HTML5, CSS3, JavaScript, AngularJS, and Firebase.</p></div>
+</div>
+
+
+
+<div ng-if="nameSubmitted && !joinedRoom">
+	<h2>Games</h2>
+	<div ng-repeat="g in allWaitGames">
+		<div class="button" ng-click="joinRoom($index)"><span class="strong">{{g.playerOneName}}</span> is waiting</div>
+	</div>
+
+	<div class="button" ng-click="createNewRoom()">Create New Game</div>
+	<h3 ng-if="allWaitGames.length === 0">No available games. Please create a new game.</h3>
+
+</div>
+
+<!-- <button ng-click="startGame()">Start Game</button> -->
+
+<div class="main_container" ng-if="joinedRoom">
+	<div class="score_left" x-ng-class="{ 'active': game.currentPlayer == 1 }">{{game.scoreboard[0]}}<br>{{game.playerOneName}}</div>
+	<div class="board">
+		<div ng-if="checkWin()">
+			<h2>Someone Wins!</h2>
+			<div class="button" ng-click="resetGame()">Create New Game</div>
+		</div>
+		<div class="row" x-ng-repeat="row in game.board track by $index">
+			<div class="space" x-ng-repeat="space in row track by $index" x-ng-click="makeMove(space)" x-ng-mouseenter="hoverPiece(board[$parent.$index][$index])" x-ng-style="hoverColor(board[$parent.$index][$index]);" x-ng-class="{ 'player_one': space.player == 1, 'player_two': space.player == 2 }"></div>
+		</div>
+	</div>
+	<div class="score_right" x-ng-class="{ 'active': game.currentPlayer == 2 }">{{game.scoreboard[1]}}<br>{{game.playerTwoName}}</div>
+</div>
+
+
+
+<!-- <button ng-click="randomPiece()">Random Piece</button>
+<button ng-click="switchPlayer()">Switch Player</button>
+<button ng-click="playMusic()">Play Music</button>
+<button ng-click="displayBoard()">Display Board</button>
+<button ng-click="rotatePiece()">Rotate Piece</button>
+<button ng-click="displayWin()">Check Win</button> -->
+
+<!-- <div class="info">
+	<h2>{{ "Player " + currentPlayer + "'s Turn" }}</h2>
+	<p>{{ "Player 1: " + scoreboard[0] }}</p>
+	<p>{{ "Player 2: " + scoreboard[1] }}</p>
+</div> -->
+
+
+
+
+<audio src="tetris.mp3" id="tetris"></audio>
+<audio src="click.mp3" id="click"></audio>
+<audio src="laugh.mp3" id="laugh"></audio>
+
+
+
+<div>
+<p x-ng-bind="win"></p>
+</div>	
+	
+</body>
+
+</html>
+
+

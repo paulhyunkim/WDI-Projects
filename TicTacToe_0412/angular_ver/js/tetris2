@@ -1,4 +1,28 @@
-function TicTacTetrisController($scope, $timeout) {
+function TicTacToeController($scope) {
+
+	// create nested array of 'space' objects
+	function createGame() {
+		$scope.board = new Array(8);
+		randomPiece();
+
+		for (var i = 0; i < 8; i++) { 
+			$scope.board[i] = new Array(8); 
+		}
+
+		// assign 0's
+		for (var i = 0; i < 8; i++) { 
+			for (var j = 0; j < 8; j++) {
+				$scope.board[i][j] = {
+					row: i,
+					col: j,
+					player: 0,
+					color: 0,
+					empty: true,
+					hover: 0
+				} ; 
+			}
+		}
+	}
 
 	$scope.pieceL = 
 		[[
@@ -82,52 +106,36 @@ function TicTacTetrisController($scope, $timeout) {
 		]];
 	$scope.allPieces = [$scope.pieceL,$scope.pieceJ,$scope.pieceI,$scope.pieceT,$scope.pieceO,$scope.pieceZ,$scope.pieceS];
 
-	var createGame = function() {
-		$scope.board = new Array(8);
-		$scope.currentSpace = {};
-		$scope.scoreboard = [0,0];
-		$scope.currentPlayer = 1;
-		randomPiece();
-
-		for (var i = 0; i < 8; i++) { 
-			$scope.board[i] = new Array(8); 
-		}
-
-		for (var i = 0; i < 8; i++) { 
-			for (var j = 0; j < 8; j++) {
-				$scope.board[i][j] = {
-					row: i,
-					col: j,
-					player: 0,
-					color: 0,
-					empty: true,
-					hover: 0
-				} ; 
-			}
-		}
-	}
-
  	var randomPiece = function() {
   	$scope.currentPieceType = $scope.allPieces[Math.floor((Math.random()*$scope.allPieces.length))]
   	$scope.currentPiece = $scope.currentPieceType[0];
   }
-	
-	$scope.hoverPiece = function(space) {
-		// reset previous hover
-		for (var i = 0; i < 8; i++) { 
-			for (var j = 0; j < 8; j++) {
-				$scope.board[i][j].hover = 0;
-			}
-		}
 
-		// apply new hover
+	
+
+	$scope.scoreboard = [0,0];
+	$scope.currentPlayer = 1;
+	randomPiece();
+	$scope.currentSpace = {};
+
+	$scope.hoverPiece = function(space) {
 		$scope.currentSpace = space;
 		var row = space.row;
 		var col = space.col;
 
+		
 		for (var i = 0; i < $scope.currentPiece.length; i++) {
 			for (var j = 0; j < $scope.currentPiece[i].length; j++) {
 				$scope.board[row+i][col+j].hover = $scope.currentPiece[i][j];
+			}
+		}
+
+	}
+
+	$scope.resetHover = function() {
+		for (var i = 0; i < 8; i++) { 
+			for (var j = 0; j < 8; j++) {
+				$scope.board[i][j].hover = 0;
 			}
 		}
 	}
@@ -141,15 +149,21 @@ function TicTacTetrisController($scope, $timeout) {
   }
 
 	var updateScore = function(lineLength) {
+		// var blockCount = 0;
+		// for (var i = 0; i < $scope.board.length; i++) { 
+		// 	for (var j = 0; j < $scope.board.length[i]; j++) {
+		// 		if ($scope.board[i][j].player == $scope.currentPlayer) {
+		// 			blockCount++;
+		// 		}
+		// 	}
+		// }
 		var points = 0;
 		switch (lineLength) {
 			case 5:
 				points = 7;
-				document.getElementById("click").play();
 				break;
 			case 6:
 				points = 15;
-				document.getElementById("laugh").play();
 				break;
 			case 7:
 				points = 30;
@@ -188,6 +202,7 @@ function TicTacTetrisController($scope, $timeout) {
 		// $scope.$apply();
 	}
   
+
   $scope.checkWin = function() {
   	for (var i = 0; i < $scope.scoreboard.length; i++){
   		if ($scope.scoreboard[i] >= 100) {
@@ -306,52 +321,17 @@ function TicTacTetrisController($scope, $timeout) {
 			}
 		}
 
-		// delete lines
-		// for (var i = 0; i < $scope.winSpaces.length; i++) {
-		// 	for (var j = 0; j < $scope.winSpaces[i].length; j++) {
-		// 		var row = $scope.winSpaces[i][j].row;
-		// 		var col = $scope.winSpaces[i][j].col;
-		// 		$scope.board[row][col].player = 0;
-		// 		$scope.board[row][col].empty = true;
-		// 	}	
-		// }
-
-		var currentPlayer = $scope.currentPlayer;
-		$timeout(function () {
-      for (var i = 0; i < $scope.winSpaces.length; i++) {
-				for (var j = 0; j < $scope.winSpaces[i].length; j++) {
-					var row = $scope.winSpaces[i][j].row;
-					var col = $scope.winSpaces[i][j].col;
-					$scope.board[row][col].player = 0;
-					$scope.board[row][col].empty = true;
-					
-				}	
-			}
-			$timeout(function () {
-	      for (var i = 0; i < $scope.winSpaces.length; i++) {
-					for (var j = 0; j < $scope.winSpaces[i].length; j++) {
-						var row = $scope.winSpaces[i][j].row;
-						var col = $scope.winSpaces[i][j].col;
-						$scope.board[row][col].player = currentPlayer;
-						$scope.board[row][col].empty = false;
-						
-					}	
-				}
-				$timeout(function () {
-		      for (var i = 0; i < $scope.winSpaces.length; i++) {
-						for (var j = 0; j < $scope.winSpaces[i].length; j++) {
-							var row = $scope.winSpaces[i][j].row;
-							var col = $scope.winSpaces[i][j].col;
-							$scope.board[row][col].player = 0;
-							$scope.board[row][col].empty = true;
-							
-						}	
-					}
-				}, 100);
-			}, 100);
-		}, 100);
+		for (var i = 0; i < $scope.winSpaces.length; i++) {
+			for (var j = 0; j < $scope.winSpaces[i].length; j++) {
+				var row = $scope.winSpaces[i][j].row;
+				var col = $scope.winSpaces[i][j].col;
+				$scope.board[row][col].player = 0;
+				$scope.board[row][col].empty = true;
+			}	
+		}
 	}
-	
+
+		
  	$scope.keyPress = function(event) {
  		switch (event.keyCode) {
  			// r
@@ -361,31 +341,37 @@ function TicTacTetrisController($scope, $timeout) {
  			// w
  			case 119: 
  				$scope.currentSpace = $scope.board[$scope.currentSpace.row-1][$scope.currentSpace.col];
+ 				$scope.resetHover();
  				$scope.hoverPiece($scope.currentSpace);
  				break;
  			// s
  			case 115:
  				$scope.currentSpace = $scope.board[$scope.currentSpace.row+1][$scope.currentSpace.col];
+ 				$scope.resetHover();
  				$scope.hoverPiece($scope.currentSpace);
  				break;
  			// a
  			case 97:
  				$scope.currentSpace = $scope.board[$scope.currentSpace.row][$scope.currentSpace.col-1];
+ 				$scope.resetHover();
  				$scope.hoverPiece($scope.currentSpace);
  				break;
  			// d
  			case 100:
  				$scope.currentSpace = $scope.board[$scope.currentSpace.row][$scope.currentSpace.col+1];
+ 				$scope.resetHover();
  				$scope.hoverPiece($scope.currentSpace);
  				break;
  			}
  	}
 
 	var rotatePiece = function() {
+	
+		
 			$scope.currentPieceType.push($scope.currentPieceType.shift());
 			$scope.currentPiece = $scope.currentPieceType[0];
+			$scope.resetHover();
 			$scope.hoverPiece($scope.currentSpace);
-			$scope.$apply();
 	}
 
 	var validMove = function(space) {
@@ -419,3 +405,7 @@ function TicTacTetrisController($scope, $timeout) {
 	createGame();
 
 }
+
+
+
+

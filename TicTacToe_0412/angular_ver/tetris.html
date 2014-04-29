@@ -5,6 +5,8 @@
 	<title>Document</title>
 	<link rel="stylesheet" href="css/tetris.css">
 	<script src="js/angular.min.js"></script>
+<!-- 	<script src="https://cdn.firebase.com/v0/firebase.js"></script>
+	<script src="https://cdn.firebase.com/libs/angularfire/0.6.0/angularfire.min.js"></script> -->
 	<script src="js/tetris.js"></script>
 </head>
 
@@ -12,7 +14,7 @@
 
 
 
-<body x-ng-app="" x-ng-controller="TicTacToeController" x-ng-keypress="keyPress($event)">
+<body x-ng-app="" x-ng-controller="TicTacTetrisController" x-ng-keypress="keyPress($event)">
 
 <h1>Tic Tac Tetris</h1>
 
@@ -20,7 +22,7 @@
 	<div class="score_left" x-ng-class="{ 'active': currentPlayer == 1 }">{{scoreboard[0]}}</div>
 	<div class="board">
 		<div class="row" x-ng-repeat="row in board track by $index">
-			<div class="space" x-ng-repeat="space in row track by $index" x-ng-click="makeMove(space)" x-ng-mouseenter="hoverPiece(space)" x-ng-style="hoverColor(space);" x-ng-class="{ 'player_one': space.player == 1, 'player_two': space.player == 2 }"></div>
+			<div class="space" x-ng-repeat="space in row track by $index" x-ng-click="makeMove(space)" x-ng-mouseenter="hoverPiece(space)" x-ng-style="hoverColor(space);" x-ng-class="{ 'player_one': space.player == 1, 'player_two': space.player == 2, blink: space.blink }"></div>
 		</div>
 	</div>
 	<div class="score_right" x-ng-class="{ 'active': currentPlayer == 2 }">{{scoreboard[1]}}</div>
@@ -45,6 +47,8 @@
 
 
 <audio src="tetris.mp3" id="tetris"></audio>
+<audio src="click.mp3" id="click"></audio>
+<audio src="laugh.mp3" id="laugh"></audio>
 
 
 
