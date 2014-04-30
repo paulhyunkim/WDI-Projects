@@ -241,18 +241,18 @@ ticTacTetrisApp.controller('TicTacTetrisController', function($scope, $firebase,
 		// console.log("$scope.game.board: " + $scope.game.board);
 	 //    console.log($scope.game.board);
 
-		$scope.board = new Array(8);
+		$scope.board = new Array(12);
 		$scope.currentSpace = {};
 		$scope.scoreboard = [0,0];
 		$scope.currentPlayer = 1;
 		randomPiece();
 
-		for (var i = 0; i < 8; i++) { 
-			$scope.board[i] = new Array(8); 
+		for (var i = 0; i < 12; i++) { 
+			$scope.board[i] = new Array(12); 
 		}
 
-		for (var i = 0; i < 8; i++) { 
-			for (var j = 0; j < 8; j++) {
+		for (var i = 0; i < 12; i++) { 
+			for (var j = 0; j < 12; j++) {
 				$scope.board[i][j] = {
 					row: i,
 					col: j,
@@ -274,8 +274,9 @@ ticTacTetrisApp.controller('TicTacTetrisController', function($scope, $firebase,
 	$scope.hoverPiece = function(space) {
 		if (isInsideBoard(space)) {
 			// reset previous hover
-			for (var i = 0; i < 8; i++) { 
-				for (var j = 0; j < 8; j++) {
+			console.log("is inside board");
+			for (var i = 0; i < 12; i++) { 
+				for (var j = 0; j < 12; j++) {
 					$scope.board[i][j].hover = 0;
 				}
 			}
@@ -313,15 +314,31 @@ ticTacTetrisApp.controller('TicTacTetrisController', function($scope, $firebase,
 				document.getElementById("click").play();
 				break;
 			case 6:
-				points = 15;
+				points = 12;
 				document.getElementById("click").play();
 				break;
 			case 7:
-				points = 30;
+				points = 18;
 				document.getElementById("click").play();
 				break;
 			case 8:
-				points = 50
+				points = 25;
+				document.getElementById("click").play();
+				break;
+			case 9:
+				points = 33;
+				document.getElementById("click").play();
+				break;
+			case 10:
+				points = 42;
+				document.getElementById("click").play();
+				break;
+			case 11:
+				points = 52;
+				document.getElementById("click").play();
+				break;
+			case 12:
+				points = 64;
 				document.getElementById("click").play();
 				break;
 		}
@@ -381,17 +398,38 @@ ticTacTetrisApp.controller('TicTacTetrisController', function($scope, $firebase,
   var checkLines = function() {
   	$scope.winSpaces = [];
   	
-		var horizontals = [$scope.board[0], $scope.board[1], $scope.board[2], $scope.board[3], $scope.board[4], $scope.board[5], $scope.board[6], $scope.board[7]];
-		var col0 = [$scope.board[0][0], $scope.board[1][0], $scope.board[2][0], $scope.board[3][0], $scope.board[4][0], $scope.board[5][0], $scope.board[6][0], $scope.board[7][0]];
-		var col1 = [$scope.board[0][1], $scope.board[1][1], $scope.board[2][1], $scope.board[3][1], $scope.board[4][1], $scope.board[5][1], $scope.board[6][1], $scope.board[7][1]];
-		var col2 = [$scope.board[0][2], $scope.board[1][2], $scope.board[2][2], $scope.board[3][2], $scope.board[4][2], $scope.board[5][2], $scope.board[6][2], $scope.board[7][2]];
-		var col3 = [$scope.board[0][3], $scope.board[1][3], $scope.board[2][3], $scope.board[3][3], $scope.board[4][3], $scope.board[5][3], $scope.board[6][3], $scope.board[7][3]];
-		var col4 = [$scope.board[0][4], $scope.board[1][4], $scope.board[2][4], $scope.board[3][4], $scope.board[4][4], $scope.board[5][4], $scope.board[6][4], $scope.board[7][4]];
-		var col5 = [$scope.board[0][5], $scope.board[1][5], $scope.board[2][5], $scope.board[3][5], $scope.board[4][5], $scope.board[5][5], $scope.board[6][5], $scope.board[7][5]];
-		var col6 = [$scope.board[0][6], $scope.board[1][6], $scope.board[2][6], $scope.board[3][6], $scope.board[4][6], $scope.board[5][6], $scope.board[6][6], $scope.board[7][6]];
-		var col7 = [$scope.board[0][7], $scope.board[1][7], $scope.board[2][7], $scope.board[3][7], $scope.board[4][7], $scope.board[5][7], $scope.board[6][7], $scope.board[7][7]];
-		var verticals = [col0, col1, col2, col3, col4, col5, col6, col7];
-		var allLines = horizontals.concat(verticals);
+		var horizontals = [];
+		var verticals = [];
+		var tempArray = [];
+
+		for (var i = 0; i < $scope.board.length; i++) {
+			horizontals.push($scope.board[i]);
+		}
+
+		for (var i = 0; i < $scope.board.length; i++) {
+			for (var j = 0; j < $scope.board.length; j++) {
+				tempArray.push($scope.board[j][i]);
+			}
+			verticals.push(tempArray);
+			tempArray = [];
+		}
+
+		console.log(verticals);
+
+		// var col0 = [$scope.board[0][0], $scope.board[1][0], $scope.board[2][0], $scope.board[3][0], $scope.board[4][0], $scope.board[5][0], $scope.board[6][0], $scope.board[7][0]];
+		// var col1 = [$scope.board[0][1], $scope.board[1][1], $scope.board[2][1], $scope.board[3][1], $scope.board[4][1], $scope.board[5][1], $scope.board[6][1], $scope.board[7][1]];
+		// var col2 = [$scope.board[0][2], $scope.board[1][2], $scope.board[2][2], $scope.board[3][2], $scope.board[4][2], $scope.board[5][2], $scope.board[6][2], $scope.board[7][2]];
+		// var col3 = [$scope.board[0][3], $scope.board[1][3], $scope.board[2][3], $scope.board[3][3], $scope.board[4][3], $scope.board[5][3], $scope.board[6][3], $scope.board[7][3]];
+		// var col4 = [$scope.board[0][4], $scope.board[1][4], $scope.board[2][4], $scope.board[3][4], $scope.board[4][4], $scope.board[5][4], $scope.board[6][4], $scope.board[7][4]];
+		// var col5 = [$scope.board[0][5], $scope.board[1][5], $scope.board[2][5], $scope.board[3][5], $scope.board[4][5], $scope.board[5][5], $scope.board[6][5], $scope.board[7][5]];
+		// var col6 = [$scope.board[0][6], $scope.board[1][6], $scope.board[2][6], $scope.board[3][6], $scope.board[4][6], $scope.board[5][6], $scope.board[6][6], $scope.board[7][6]];
+		// var col7 = [$scope.board[0][7], $scope.board[1][7], $scope.board[2][7], $scope.board[3][7], $scope.board[4][7], $scope.board[5][7], $scope.board[6][7], $scope.board[7][7]];
+		// var col8 = [$scope.board[0][8], $scope.board[1][8], $scope.board[2][8], $scope.board[3][8], $scope.board[4][8], $scope.board[5][8], $scope.board[6][8], $scope.board[7][8]];
+		// var col9 = [$scope.board[0][7], $scope.board[1][7], $scope.board[2][7], $scope.board[3][7], $scope.board[4][7], $scope.board[5][7], $scope.board[6][7], $scope.board[7][7]];
+		// var col10 = [$scope.board[0][7], $scope.board[1][7], $scope.board[2][7], $scope.board[3][7], $scope.board[4][7], $scope.board[5][7], $scope.board[6][7], $scope.board[7][7]];
+		// var col11 = [$scope.board[0][7], $scope.board[1][7], $scope.board[2][7], $scope.board[3][7], $scope.board[4][7], $scope.board[5][7], $scope.board[6][7], $scope.board[7][7]];
+		// var verticalsTest = [col0, col1, col2, col3, col4, col5, col6, col7, col8, col9, col10, col11];
+		// var allLines = horizontals.concat(verticals);
 		
 		
 
@@ -634,8 +672,8 @@ ticTacTetrisApp.controller('TicTacTetrisController', function($scope, $firebase,
 		$scope.board = $scope.game.board;
 		console.log($scope.game.board);
 		$scope.$apply();
-		if (isValidMove(space) && playerNum === $scope.game.currentPlayer) {
-			placePiece(space);
+		if (isValidMove($scope.currentSpace) && playerNum === $scope.game.currentPlayer) {
+			placePiece($scope.currentSpace);
 			checkLines();
 			switchPlayer();
 			randomPiece();
@@ -650,18 +688,18 @@ ticTacTetrisApp.controller('TicTacTetrisController', function($scope, $firebase,
 		console.log("$scope.game.board: " + $scope.game.board);
 	    console.log($scope.game.board);
 
-		$scope.board = new Array(8);
+		$scope.board = new Array(12);
 		$scope.currentSpace = {};
 		$scope.game.scoreboard = [0,0];
 		$scope.currentPlayer = 1;
 		randomPiece();
 
-		for (var i = 0; i < 8; i++) { 
-			$scope.board[i] = new Array(8); 
+		for (var i = 0; i < 12; i++) { 
+			$scope.board[i] = new Array(12); 
 		}
 
-		for (var i = 0; i < 8; i++) { 
-			for (var j = 0; j < 8; j++) {
+		for (var i = 0; i < 12; i++) { 
+			for (var j = 0; j < 12; j++) {
 				$scope.board[i][j] = {
 					row: i,
 					col: j,
