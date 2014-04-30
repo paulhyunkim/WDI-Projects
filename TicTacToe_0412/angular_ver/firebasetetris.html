@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Document</title>
+	<title>Tic Tac Tetris</title>
 	<link rel="stylesheet" href="css/tetris.css">
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,800,700,300' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300' rel='stylesheet' type='text/css'>
@@ -26,10 +26,11 @@
 	<input type="text" class="name" ng-model="name" name="text" placeholder="Player Name"/><br>
 	<div class="button" ng-click="setName(name)">Let's Play!</div>
 
-	<div class="intro"><h2>Welcome to my first web app!</h2><p>Simply line up five or more blocks to earn points! First to a hundred points wins! My first project at General Assembly. Made using HTML5, CSS3, JavaScript, AngularJS, and Firebase.</p></div>
+	<div class="intro"><h2>Welcome to my first web app!</h2><p>Simply line up five or more blocks to earn points! First to a hundred points wins! My first project at General Assembly.</p>
+	<p>Made using HTML5, CSS3, JavaScript, AngularJS, and Firebase.</p></div>
 </div>
 
-
+	<a href="feedback.html"><div class="button">Leave feedback</div></a>
 
 <div ng-if="nameSubmitted && !joinedRoom">
 	<h2>Games</h2>
