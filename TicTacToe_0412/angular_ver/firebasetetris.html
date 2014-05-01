@@ -5,7 +5,7 @@
 	<title>Tic Tac Tetris</title>
 	<link rel="stylesheet" href="css/tetris.css">
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,800,700,300' rel='stylesheet' type='text/css'>
-	<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300' rel='stylesheet' type='text/css'>
+	<!-- <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300' rel='stylesheet' type='text/css'> -->
   <link href='http://fonts.googleapis.com/css?family=Lato:900' rel='stylesheet' type='text/css'>
 	<script src="js/angular.min.js"></script>
 	<script src="js/firebase.js"></script>
@@ -47,8 +47,9 @@
 
 <!-- <button ng-click="startGame()">Start Game</button> -->
 
-<div class="main_container" ng-if="joinedRoom">
+<div class="game_board" ng-if="joinedRoom">
 	<div class="score_left" x-ng-class="{ 'active': game.currentPlayer == 1 }">{{game.scoreboard[0]}}<br>{{game.playerOneName}}</div>
+	<div class="score_right" x-ng-class="{ 'active': game.currentPlayer == 2 }">{{game.scoreboard[1]}}<br>{{game.playerTwoName}}</div>
 	<div class="board">
 		<div ng-if="checkWin()">
 			<h2>Someone Wins!</h2>
@@ -58,7 +59,7 @@
 			<div class="space" x-ng-repeat="space in row track by $index" x-ng-click="makeMove(space)" x-ng-mouseenter="hoverPiece(board[$parent.$index][$index])" x-ng-style="hoverColor(board[$parent.$index][$index]);" x-ng-class="{ 'player_one': space.player == 1, 'player_two': space.player == 2 }"></div>
 		</div>
 	</div>
-	<div class="score_right" x-ng-class="{ 'active': game.currentPlayer == 2 }">{{game.scoreboard[1]}}<br>{{game.playerTwoName}}</div>
+	
 </div>
 
 

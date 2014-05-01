@@ -1,0 +1,7 @@
+# Logfile created on 2014-03-27 08:20:53 -0700 by logger.rb/44203
+I, [2014-03-27T08:20:53.416615 #34276]  INFO -- : 0:  diff-lcs (1.2.5) from /usr/local/rvm/gems/ruby-2.1.0@spiral/specifications/diff-lcs-1.2.5.gemspec
+I, [2014-03-27T08:20:54.192570 #34276]  INFO -- : 0:  rspec-core (2.14.8) from /usr/local/rvm/gems/ruby-2.1.0@spiral/specifications/rspec-core-2.14.8.gemspec
+I, [2014-03-27T08:20:54.720165 #34276]  INFO -- : 0:  rspec-expectations (2.14.5) from /usr/local/rvm/gems/ruby-2.1.0@spiral/specifications/rspec-expectations-2.14.5.gemspec
+I, [2014-03-27T08:20:55.207044 #34276]  INFO -- : 0:  rspec-mocks (2.14.6) from /usr/local/rvm/gems/ruby-2.1.0@spiral/specifications/rspec-mocks-2.14.6.gemspec
+I, [2014-03-27T08:20:55.755908 #34276]  INFO -- : 0:  rspec (2.14.1) from /usr/local/rvm/gems/ruby-2.1.0@spiral/specifications/rspec-2.14.1.gemspec
+I, [2014-03-27T08:20:55.756192 #34276]  INFO -- : 0:  bundler (1.5.1) from /usr/local/rvm/gems/ruby-2.1.0@global/specifications/bundler-1.5.1.gemspec

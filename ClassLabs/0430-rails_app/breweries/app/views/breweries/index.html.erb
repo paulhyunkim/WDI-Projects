@@ -1,0 +1,16 @@
+<h1>Listing breweries</h1>
+
+  <% @breweries.each do |brewery| %>
+  <div class="box">
+    <div><%= brewery.name %></div>
+    <div><%= brewery.city %></div>
+    <div><%= brewery.state %></div>
+    <div><%= link_to 'Show', brewery %></div>
+    <div><%= link_to 'Edit', edit_brewery_path(brewery) %></div>
+    <div><%= link_to 'Destroy', brewery, method: :delete, data: { confirm: 'Are you sure?' } %></div>
+  </div>
+  <% end %>
+
+<br>
+
+<%= link_to 'New Brewery', new_brewery_path %>

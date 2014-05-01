@@ -1,0 +1,6 @@
+== reverser 10
+
+reverses a string and prints it 10 times
+
+to run:
+bin/reverser_10.rb {string to print 10 times}
